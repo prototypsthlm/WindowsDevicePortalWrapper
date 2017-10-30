@@ -227,6 +227,70 @@ namespace SampleWdpClient
         }
 
         /// <summary>
+        /// Click handler for the getIpConfig button.
+        /// </summary>
+        /// <param name="sender">The caller of this method.</param>
+        /// <param name="e">The arguments associated with this event.</param>
+        private void UploadFile_Click(object sender, RoutedEventArgs e)
+        {
+            this.ClearOutput();
+            this.EnableConnectionControls(false);
+            this.EnableDeviceControls(false);
+
+            var packageName = packageTextBox.Text;
+            var fileName = filenameTextBox.Text;
+
+            //write file
+            StringBuilder sb = new StringBuilder();
+            Task getTask = new Task(
+                async () =>
+                {
+                    sb.Append(this.MarshalGetCommandOutput());
+                    sb.AppendLine("Uploading file ...");
+                    this.MarshalUpdateCommandOutput(sb.ToString());
+
+                    try
+                    {
+                        await portal.UploadFileAsync("LocalAppData", 
+                           fileName, "\\LocalCache", 
+                            packageName);
+
+                        //IpConfiguration ipconfig = await portal.GetIpConfigAsync();
+
+                        //foreach (NetworkAdapterInfo adapterInfo in ipconfig.Adapters)
+                        //{
+                        //    sb.Append(" ");
+                        //    sb.AppendLine(adapterInfo.Description);
+                        //    sb.Append("  MAC address :");
+                        //    sb.AppendLine(adapterInfo.MacAddress);
+                        //    foreach (IpAddressInfo address in adapterInfo.IpAddresses)
+                        //    {
+                        //        sb.Append("  IP address :");
+                        //        sb.AppendLine(address.Address);
+                        //    }
+                        //    sb.Append("  DHCP address :");
+                        //    sb.AppendLine(adapterInfo.Dhcp.Address.Address);
+                        //}
+                    }
+                    catch (Exception ex)
+                    {
+                        sb.AppendLine("Failed to upload file.");
+                        sb.AppendLine(ex.GetType().ToString() + " - " + ex.Message);
+                    }
+                    sb.AppendLine("Done...");
+                    this.MarshalUpdateCommandOutput(sb.ToString());
+                });
+
+            Task continuationTask = getTask.ContinueWith(
+                (t) =>
+                {
+                    this.MarshalEnableDeviceControls(true);
+                    this.MarshalEnableConnectionControls(true);
+                });
+
+            getTask.Start();
+        }
+        /// <summary>
         /// Click handler for the getWifiInfo button.
         /// </summary>
         /// <param name="sender">The caller of this method.</param>

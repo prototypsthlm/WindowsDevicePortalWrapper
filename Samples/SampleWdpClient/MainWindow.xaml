@@ -26,6 +26,7 @@
 
         <Button x:Name="getIPConfig" Content="Get IP Config" Grid.Column="0" HorizontalAlignment="Left" Margin="12,166,0,0" VerticalAlignment="Top" Width="144" Click="GetIPConfig_Click" IsEnabled="False" Height="32"/>
         <Button x:Name="getWiFiInfo" Content="Get WiFi Info" Grid.Column="0" HorizontalAlignment="Left" Margin="161,166,0,0" VerticalAlignment="Top" Width="144" Click="GetWifiInfo_Click" IsEnabled="False" Height="32"/>
+        <Button x:Name="uploadFile" Content="Upload file" Grid.Column="0" HorizontalAlignment="Left" Margin="13,203,0,0" VerticalAlignment="Top" Width="144" Click="UploadFile_Click" IsEnabled="True" Height="32"/>
 
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Grid.Column="1" Margin="0,15,0,15" Width="2" RenderTransformOrigin="0.5,0.5" />
 
@@ -33,5 +34,9 @@
         <ScrollViewer Grid.Column="1" Margin="10,42,10,10">
             <TextBox x:Name="commandOutput" Margin="0,0,0,0" TextWrapping="Wrap" Text=""/>
         </ScrollViewer>
+        <TextBox x:Name="packageTextBox" Grid.Column="0" Margin="86,240,19.5,0" TextWrapping="NoWrap" Text="PeaxyUnity_2.0.7.0_x86__2cpcy1hfcr5s8" VerticalAlignment="Top" Height="32"/>
+        <TextBlock x:Name="usernameLabel_Copy" Grid.Column="0" HorizontalAlignment="Left" Margin="15,250,0,0" TextWrapping="Wrap" Text="Package" VerticalAlignment="Top" Height="20" Width="71"/>
+        <TextBox x:Name="filenameTextBox" Grid.Column="0" Margin="87,282,18.5,0" TextWrapping="NoWrap" Text="c:/oob.config" VerticalAlignment="Top" Height="32"/>
+        <TextBlock x:Name="usernameLabel_Copy1" Grid.Column="0" HorizontalAlignment="Left" Margin="16,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="71"><Run Text="Config file"/><LineBreak/><Run/></TextBlock>
     </Grid>
 </Window>
